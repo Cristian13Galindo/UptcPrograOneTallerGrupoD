@@ -1,16 +1,19 @@
 package Test;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import javax.swing.JOptionPane;
 
 public class Operaciones {
 	
 
-	boolean repetir;
+	static boolean repetir;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Operaciones().menu();
 	}
-	void menu() {
+	public static void menu() {
         String myMenu = "<<<<<<MENU PRINCUPAL>>>>>>\n\n" +
                 "A. Convertir numeros romanos a decimal\n" +
                 "B. calculo factores primos\n" +
@@ -58,7 +61,10 @@ public class Operaciones {
         } while (Character.toUpperCase(option) != 'X');
     }
 
-	private void inputRomano() {//1.NUMEROS ROMANOS
+	/**
+	 * este metodo convierte un numero romano a u numero decimal
+	 */
+	private static void inputRomano() {//1.NUMEROS ROMANOS
 
 		String cadena = JOptionPane.showInputDialog("Digite un numero romano");
 		
@@ -89,7 +95,6 @@ public class Operaciones {
 				}else if(cadenaSeparada[i].equals("m") || cadenaSeparada[i].equals("M")) {
 					cadenaNumerica[i]=1000;
 				}else { 
-					System.out.println("Entrada no valida");
 					aux=1;
 				}
 		}
@@ -103,14 +108,19 @@ public class Operaciones {
 				}
 			}else {
 				numDecimal=numDecimal+cadenaNumerica[i];
-			}		
+			}		 
 		}
 		if(aux!=1) {
 			JOptionPane.showMessageDialog(null, "El numero "+cadena+" es equivalente a "+numDecimal);
+		}else {
+			JOptionPane.showMessageDialog(null, "Entrada no valida");
 		}
 	}
+	/**
+	 * este metodo halla los factores primos de un numero y lo expresa en forma de potencia
+	 */
 	
-	private void inputFactor() {//2.NUMEROS PRIMOS
+	private static void inputFactor() {//2.NUMEROS PRIMOS
 		
 		int num=0;
         int listafactores[]=new int[10];
@@ -139,8 +149,14 @@ public class Operaciones {
 		}
         JOptionPane.showMessageDialog(null, cadena);
     }
+	/**
+	 * 
+	 * @param num es el número que el usuario ingresa
+	 * @param listafactores este erreglo guarda los factores primos del numero ingresado
+	 * @return un arreglo con los numeros primos del numero
+	 */
 
-    int[] isFactor( int num, int[]listafactores ){//2.NUMEROS PRIMOS - LOGICA
+    private static int[] isFactor( int num, int[]listafactores ){//2.NUMEROS PRIMOS - LOGICA
     	
     	int k=0;
     	int divisor=2;
@@ -157,8 +173,10 @@ public class Operaciones {
 
         return listafactores;
     }
-    
-    private void inputCadena() {//3.CADENA
+    /**
+     * Este metodo borra los espacios de una cadena ingresada por el usuario
+     */
+    private static void inputCadena() {//3.CADENA
 		// TODO Auto-generated method stub
 		String cadena=JOptionPane.showInputDialog("Digite el texto");
 		
@@ -166,7 +184,10 @@ public class Operaciones {
 		JOptionPane.showMessageDialog(null, result);
 	}
     
-	private void inputEgolatra() {//4.NUMERO EGOLATRA
+    /**
+     * Este metodo valida si el numero ingresado por el usuario es un numero egolatra
+     */
+	private static void inputEgolatra() {//4.NUMERO EGOLATRA
         
 		int number=0;
 		
@@ -188,8 +209,12 @@ public class Operaciones {
         }
 
     }
-    
-    boolean isEgolatra( String numEgolatra ){//4.NUMERO EGOLATRA - LOGICA
+    /**
+     * 
+     * @param numEgolatra recibe un numero para ser evaluado si es o no egolatra
+     * @return un boolean que determina si es o no un numero egolatra
+     */
+    private static boolean isEgolatra( String numEgolatra ){//4.NUMERO EGOLATRA - LOGICA
     	
     	int tamNumero=numEgolatra.length();
 		int [] numerosSeparados=new int[tamNumero];
@@ -218,7 +243,10 @@ public class Operaciones {
         return totalEgolatra==Integer.parseInt(numEgolatra);
     }
 	
-	private void inputMagic() {//5.NUMERO MAGICO
+    /**
+     * Este metodo valida si el numero ingresado por el usuario es un numero magico
+     */
+	private static void inputMagic() {//5.NUMERO MAGICO
     	int number=0;
     	
 		do {
@@ -239,8 +267,12 @@ public class Operaciones {
         }
        
 	}
-	
-	boolean isMagic(String numMagic) {//5.NUMERO MAGICO - LOGICA
+	/**
+	 * 
+	 * @param numMagic contiene el numero ingresado por el usuario para ser evaluado
+	 * @return un boolean que determina si es o no un numero magico
+	 */
+	private static boolean isMagic(String numMagic) {//5.NUMERO MAGICO - LOGICA
 		
 		int tamnumber;
         int aux=0;
@@ -288,8 +320,97 @@ public class Operaciones {
 		
 	}
 	
-    private void inputFecha() {//6.FECHA
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Este metodo recibe una fecha ingresada por el usuario, la valida y muestra por pantalla la fecha con el mes en letra
+	 */
+    private static void inputFecha() {//6.FECHA
+   	
+    	do {
+    		
+    		String number =JOptionPane.showInputDialog("Digite la fecha en formto dd/mm/aaaa");
+    		 
+        	String[] fechaSeparada = number.split("/");	
+	    	try {
+	    		
+	    	switch (fechaSeparada[1]) {
+	        case "01":
+	        	
+	            LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.JANUARY,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de enero de "+fechaSeparada[2]);
+	            break;
+	
+	        case "02":
+	        	
+	    		LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.FEBRUARY,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de febrero de "+fechaSeparada[2]);
+	        	
+	            break;
+	
+	        case "03":
+	            
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.MARCH,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de marzo de "+fechaSeparada[2]);
+	            break;
+	            
+	        case "04":
+	            
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.APRIL,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de abril de "+fechaSeparada[2]);
+	            break;
+	
+	        case "05":
+	            
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.MAY,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de mayo de "+fechaSeparada[2]);
+	            break;
+	            
+	        case "06":
+	        	
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.JUNE,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de junio de "+fechaSeparada[2]);
+	        	break;
+	        	
+	        case "07":
+	            
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.JULY,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de julio de "+fechaSeparada[2]);
+	            break;
+	
+	        case "08":
+	            
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.AUGUST,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de agosto de "+fechaSeparada[2]);
+	            break;
+	
+	        case "09":
+	
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.SEPTEMBER,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de septiembre de "+fechaSeparada[2]);
+	            break; 
+	            
+	        case "10":
+	
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.OCTOBER,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de octubre de "+fechaSeparada[2]);
+	            break;
+	            
+	        case "11":
+	
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.NOVEMBER,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de noviembre de "+fechaSeparada[2]);
+	            break;
+	            
+	        case "12":
+	
+	        	LocalDate.of(Integer.parseInt(fechaSeparada[2]), Month.DECEMBER,Integer.parseInt(fechaSeparada[0]));
+	            JOptionPane.showMessageDialog(null,fechaSeparada[0]+" de diciembre de "+fechaSeparada[2]);
+	            break; 
+	    	}
+	    	repetir=false;	
+	    	}catch(java.time.DateTimeException e){
+	    		JOptionPane.showMessageDialog(null,"error digite la fecha nuevamente");
+	    		repetir=true;
+	    	}
+    	}while(repetir);
 	}
 }
